@@ -7,16 +7,6 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
 public class UserApiClient {
-    public Response create(CreateUserRequestBody body) {
-        return given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("x-api-key", "reqres-free-v1")
-                .body(body)
-                .when()
-                .post("/users");
-    }
-
     public Response get(int id) {
         return given()
                 .contentType(ContentType.JSON)
@@ -40,5 +30,25 @@ public class UserApiClient {
                 .queryParam("page", page)
                 .when()
                 .get("/users");
+    }
+
+    public Response create(CreateUserRequestBody body) {
+        return given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("x-api-key", "reqres-free-v1")
+                .body(body)
+                .when()
+                .post("/users");
+    }
+
+    public Response put(int id, CreateUserRequestBody body) {
+        return given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("x-api-key", "reqres-free-v1")
+                .body(body)
+                .when()
+                .put("/users/" + id);
     }
 }
