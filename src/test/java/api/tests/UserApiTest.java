@@ -116,4 +116,16 @@ public class UserApiTest extends BaseTest {
                 {"John Doe Updated", "admin"}
         };
     }
+
+    @Test
+    public void testDeleteUser() {
+        // Arrange
+        int userId = 2;
+
+        // Act
+        DeleteUserResponseBody responseBody = userApiService.deleteUser(userId);
+
+        // Assert
+        Assert.assertEquals(responseBody.getStatusCode(), 204);
+    }
 }
