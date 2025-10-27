@@ -62,4 +62,13 @@ public class UserApiClient {
                 .when()
                 .patch("/users/" + id);
     }
+
+    public Response delete(int id) {
+        return given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("x-api-key", "reqres-free-v1")
+                .when()
+                .delete("/users/" + id);
+    }
 }

@@ -55,6 +55,17 @@ public class UserApiService {
         return extractResponseBody(response, UpdateUserResponseBody.class);
     }
 
+    public DeleteUserResponseBody deleteUser(int id) {
+        Response response = userApiClient.delete(id);
+        response.then().log().body();
+
+        DeleteUserResponseBody deleteUserResponseBody = new DeleteUserResponseBody();
+        deleteUserResponseBody.setStatusCode(response.statusCode());
+        deleteUserResponseBody.setResponseTime(response.time());
+
+        return deleteUserResponseBody;
+    }
+
     private <T extends BaseResponseBody> T extractResponseBody(Response response, Class<T> responseClass) {
         T responseBody = response.as(responseClass);
         responseBody.setStatusCode(response.statusCode());
