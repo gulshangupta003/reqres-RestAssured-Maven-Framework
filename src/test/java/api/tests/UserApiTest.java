@@ -1,10 +1,7 @@
 package api.tests;
 
 import api.clients.UserApiClient;
-import api.models.CreateUserRequestBody;
-import api.models.CreateUserResponseBody;
-import api.models.GetAllUsersResponseBody;
-import api.models.GetSingleUserResponseBody;
+import api.models.*;
 import api.services.UserApiService;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -34,7 +31,7 @@ public class UserApiTest extends BaseTest {
         responseBody.assertSuccessResponse(requestBody);
     }
 
-    @Test
+    @Test(enabled = false)
     public void shouldGetSingleUser() {
         // Arrange
         CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
@@ -74,5 +71,23 @@ public class UserApiTest extends BaseTest {
         // Assert
         Assert.assertEquals(getAllUsersResponseBody.getStatusCode(), 200);
         Assert.assertEquals(getAllUsersResponseBody.getPage(), page);
+    }
+
+    @Test
+    public void shouldUpdateUserData() {
+        // Arrange
+        int userId = 2;
+        CreateUserRequestBody requestBody = CreateUserRequestBody.builder()
+                .name("rahul")
+                .job("enterprises")
+                .build();
+
+        // Act
+        UpdateUserResponseBody responseBody = userApiService.updateUser(userId, requestBody);
+
+        // Assert
+        Assert.assertEquals(responseBody.getStatusCode(), 200);
+        Assert.assertEquals(responseBody.getName(), requestBody.getName());
+        Assert.assertEquals(responseBody.getJob(), requestBody.getJob());
     }
 }

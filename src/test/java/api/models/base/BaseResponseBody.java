@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class BaseResponseBody {
     private int statusCode;
+    private long responseTime;
 }

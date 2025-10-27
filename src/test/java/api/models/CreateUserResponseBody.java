@@ -1,22 +1,21 @@
 package api.models;
 
+import api.models.base.BaseResponseBody;
 import lombok.Getter;
-import lombok.Setter;
-import org.testng.Assert;
+
+import static org.testng.Assert.*;
 
 @Getter
-public class CreateUserResponseBody {
-    @Setter
-    private int statusCode;
-    private String createdAt;
+public class CreateUserResponseBody extends BaseResponseBody {
     private String name;
-    private String id;
     private String job;
+    private String id;
+    private String createdAt;
 
     public void assertSuccessResponse(CreateUserRequestBody body) {
-        Assert.assertEquals(this.getStatusCode(), 201);
-        Assert.assertEquals(this.getName(), body.getName());
-        Assert.assertEquals(this.getJob(), body.getJob());
-        Assert.assertNotNull(this.getId());
+        assertEquals(this.getStatusCode(), 201);
+        assertEquals(this.getName(), body.getName());
+        assertEquals(this.getJob(), body.getJob());
+        assertNotNull(this.getId());
     }
 }
