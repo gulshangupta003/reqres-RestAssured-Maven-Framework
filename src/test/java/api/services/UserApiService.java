@@ -48,6 +48,13 @@ public class UserApiService {
         return extractResponseBody(response, UpdateUserResponseBody.class);
     }
 
+    public UpdateUserResponseBody partiallyUpdateUser(int id, PartialUpdateUserRequestBody body) {
+        Response response = userApiClient.patch(id, body);
+        response.then().log().body();
+
+        return extractResponseBody(response, UpdateUserResponseBody.class);
+    }
+
     private <T extends BaseResponseBody> T extractResponseBody(Response response, Class<T> responseClass) {
         T responseBody = response.as(responseClass);
         responseBody.setStatusCode(response.statusCode());

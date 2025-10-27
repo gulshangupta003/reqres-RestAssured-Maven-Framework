@@ -1,6 +1,7 @@
 package api.clients;
 
 import api.models.CreateUserRequestBody;
+import api.models.PartialUpdateUserRequestBody;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -50,5 +51,15 @@ public class UserApiClient {
                 .body(body)
                 .when()
                 .put("/users/" + id);
+    }
+
+    public Response patch(int id, PartialUpdateUserRequestBody body) {
+        return given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("x-api-key", "reqres-free-v1")
+                .body(body)
+                .when()
+                .patch("/users/" + id);
     }
 }
