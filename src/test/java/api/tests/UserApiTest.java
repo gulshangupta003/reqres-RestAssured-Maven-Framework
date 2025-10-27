@@ -5,6 +5,7 @@ import api.models.*;
 import api.services.UserApiService;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class UserApiTest extends BaseTest {
@@ -89,5 +90,30 @@ public class UserApiTest extends BaseTest {
         Assert.assertEquals(responseBody.getStatusCode(), 200);
         Assert.assertEquals(responseBody.getName(), requestBody.getName());
         Assert.assertEquals(responseBody.getJob(), requestBody.getJob());
+    }
+
+    @Test(dataProvider = "partialUpdateCases")
+    public void testPartialUpdate(String name, String job) {
+        // Arrange
+        int userId = 2;
+        PartialUpdateUserRequestBody requestBody = new PartialUpdateUserRequestBody(name, job);
+
+        // Act
+        UpdateUserResponseBody responseBody = userApiService.partiallyUpdateUser(userId, requestBody);
+
+        // Assert
+        Assert.assertEquals(responseBody.getStatusCode(), 200);
+        Assert.assertEquals(responseBody.getName(), requestBody.getName());
+        Assert.assertEquals(responseBody.getJob(), requestBody.getJob());
+        Assert.assertNotNull(responseBody.getUpdatedAt());
+    }
+
+    @DataProvider(name = "partialUpdateCases")
+    private Object[][] partialUpdateCases() {
+        return new Object[][]{
+                {"John Doe Updated", null},
+                {null, "admin"},
+                {"John Doe Updated", "admin"}
+        };
     }
 }
