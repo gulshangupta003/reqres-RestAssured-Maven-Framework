@@ -3,6 +3,7 @@ package api.tests;
 import api.clients.UserApiClient;
 import api.models.*;
 import api.services.UserApiService;
+import api.utils.RandomUtils;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -21,8 +22,8 @@ public class UserApiTest extends BaseTest {
     public void createUser() {
         // Arrange
         CreateUserRequestBody requestBody = CreateUserRequestBody.builder()
-                .name("morpheus")
-                .job("leader")
+                .name(RandomUtils.getRandomName())
+                .job(RandomUtils.getRandomJob())
                 .build();
 
         // Act
@@ -36,8 +37,8 @@ public class UserApiTest extends BaseTest {
     public void shouldGetSingleUser() {
         // Arrange
         CreateUserRequestBody createUserRequestBody = CreateUserRequestBody.builder()
-                .name("morpheus")
-                .job("leader")
+                .name(RandomUtils.getRandomName())
+                .job(RandomUtils.getRandomJob())
                 .build();
         CreateUserResponseBody createUserResponseBody = userApiService.createUser(createUserRequestBody);
         int userId = Integer.parseInt(createUserResponseBody.getId());
@@ -79,8 +80,8 @@ public class UserApiTest extends BaseTest {
         // Arrange
         int userId = 2;
         CreateUserRequestBody requestBody = CreateUserRequestBody.builder()
-                .name("rahul")
-                .job("enterprises")
+                .name(RandomUtils.getRandomName())
+                .job(RandomUtils.getRandomJob())
                 .build();
 
         // Act
@@ -111,9 +112,9 @@ public class UserApiTest extends BaseTest {
     @DataProvider(name = "partialUpdateCases")
     private Object[][] partialUpdateCases() {
         return new Object[][]{
-                {"John Doe Updated", null},
-                {null, "admin"},
-                {"John Doe Updated", "admin"}
+                {RandomUtils.getRandomName(), null},
+                {null, RandomUtils.getRandomJob()},
+                {RandomUtils.getRandomName(), RandomUtils.getRandomJob()}
         };
     }
 
