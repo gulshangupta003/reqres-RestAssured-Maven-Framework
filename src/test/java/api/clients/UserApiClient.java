@@ -1,5 +1,6 @@
 package api.clients;
 
+import api.config.ConfigManager;
 import api.models.CreateUserRequestBody;
 import api.models.PartialUpdateUserRequestBody;
 import io.restassured.http.ContentType;
@@ -11,64 +12,64 @@ public class UserApiClient {
     public Response get(int id) {
         return given()
                 .contentType(ContentType.JSON)
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", ConfigManager.getApiKey())
                 .when()
-                .get("/users/" + id);
+                .get(ConfigManager.getUsersEndpoint() + "/" + id);
     }
 
     public Response getAll() {
         return given()
                 .accept(ContentType.JSON)
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", ConfigManager.getApiKey())
                 .when()
-                .get("/users");
+                .get(ConfigManager.getUsersEndpoint());
     }
 
     public Response getAll(int page) {
         return given()
                 .accept(ContentType.JSON)
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", ConfigManager.getApiKey())
                 .queryParam("page", page)
                 .when()
-                .get("/users");
+                .get(ConfigManager.getUsersEndpoint());
     }
 
     public Response create(CreateUserRequestBody body) {
         return given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", ConfigManager.getApiKey())
                 .body(body)
                 .when()
-                .post("/users");
+                .post(ConfigManager.getUsersEndpoint());
     }
 
     public Response put(int id, CreateUserRequestBody body) {
         return given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", ConfigManager.getApiKey())
                 .body(body)
                 .when()
-                .put("/users/" + id);
+                .put(ConfigManager.getUsersEndpoint() + "/" + id);
     }
 
     public Response patch(int id, PartialUpdateUserRequestBody body) {
         return given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", ConfigManager.getApiKey())
                 .body(body)
                 .when()
-                .patch("/users/" + id);
+                .patch(ConfigManager.getUsersEndpoint() + "/" + id);
     }
 
     public Response delete(int id) {
         return given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", ConfigManager.getApiKey())
                 .when()
-                .delete("/users/" + id);
+                .delete(ConfigManager.getUsersEndpoint() + "/" + id);
     }
 }
